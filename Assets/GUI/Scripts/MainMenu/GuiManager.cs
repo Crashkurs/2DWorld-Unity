@@ -30,18 +30,21 @@ public class GuiManager : MonoBehaviour {
 
 	public void loadSingleplayerGame()
 	{
+		Configuration.Properties.isSinglePlayer = true;
 		Application.LoadLevel ("Game");
 		Debug.Log ("Lade Einzelspieler...");
 	}
 
 	public void loadMultiplayerGameAsServer()
 	{
+		Configuration.Properties.isSinglePlayer = false;
 		Application.LoadLevel ("Game");
 		Debug.Log ("Erstelle Server für Multiplayer");
 	}
 
 	public void loadMultiplayerGameAsClient()
 	{
+		Configuration.Properties.isSinglePlayer = false;
 		Application.LoadLevel ("Game");
 		Debug.Log ("Verbinde zu Server für Multiplayer");
 	}
