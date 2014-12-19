@@ -46,7 +46,10 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Configuration\Properties.cs" />
      <Compile Include="Assets\GUI\Scripts\MainMenu\GuiManager.cs" />
+     <Compile Include="Assets\GUI\Scripts\OptionsMenu\DifficultyScrollbar.cs" />
+     <Compile Include="Assets\GUI\Scripts\OptionsMenu\SoundSlider.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/4.6.0/UnityEngine.UI.dll</HintPath>
  </Reference>
