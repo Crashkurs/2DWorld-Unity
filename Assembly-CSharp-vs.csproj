@@ -50,6 +50,7 @@
      <Compile Include="Assets\GUI\Scripts\MainMenu\GuiManager.cs" />
      <Compile Include="Assets\GUI\Scripts\OptionsMenu\DifficultyScrollbar.cs" />
      <Compile Include="Assets\GUI\Scripts\OptionsMenu\SoundSlider.cs" />
+     <Compile Include="Assets\TestScripts\CameraScrolling.cs" />
      <Compile Include="Assets\TestScripts\ClickMovement.cs" />
      <Compile Include="Assets\TestScripts\CreatureFactory.cs" />
      <Compile Include="Assets\TestScripts\Movement.cs" />

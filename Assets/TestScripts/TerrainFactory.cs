@@ -4,8 +4,6 @@ using System.Collections.Generic;
 
 public class TerrainFactory : MonoBehaviour {
 
-	public Material material;
-
 	void Start () {
 		createTerrain (new Vector3 (-16, 0, -16), "Images/Gras", new Vector3(100, 100, 100));
 	}

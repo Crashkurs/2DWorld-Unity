@@ -19,7 +19,7 @@ public class Movement : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Vector3.Distance(transform.position, targetLocation) > 0.1f) 
+		if (Vector3.Distance(transform.position, targetLocation) > 0.05f) 
 		{
 			Rotation rotation = GetComponent<Rotation>();
 			if(rotation.isRotating)

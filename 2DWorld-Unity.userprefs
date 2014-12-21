@@ -1,13 +1,12 @@
 ﻿<Properties GitUserInfo="UsingMD">
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\TestScripts\CreatureFactory.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\TestScripts\ClickMovement.cs">
     <Files>
-      <File FileName="Assets\TestScripts\CreatureFactory.cs" Line="19" Column="37" />
-      <File FileName="Assets\TestScripts\TerrainFactory.cs" Line="29" Column="52" />
-      <File FileName="Assets\TestScripts\Rotation.cs" Line="32" Column="7" />
-      <File FileName="Assets\TestScripts\Movement.cs" Line="34" Column="40" />
-      <File FileName="Assets\TestScripts\TrollAnimation.cs" Line="12" Column="18" />
-      <File FileName="Assets\TestScripts\ClickMovement.cs" Line="12" Column="51" />
+      <File FileName="Assets\TestScripts\CreatureFactory.cs" Line="8" Column="37" />
+      <File FileName="Assets\TestScripts\TerrainFactory.cs" Line="5" Column="46" />
+      <File FileName="Assets\TestScripts\Movement.cs" Line="22" Column="66" />
+      <File FileName="Assets\TestScripts\TrollAnimation.cs" Line="33" Column="1" />
+      <File FileName="Assets\TestScripts\ClickMovement.cs" Line="8" Column="32" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
