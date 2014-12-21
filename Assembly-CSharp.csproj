@@ -50,6 +50,14 @@
      <Compile Include="Assets\GUI\Scripts\MainMenu\GuiManager.cs" />
      <Compile Include="Assets\GUI\Scripts\OptionsMenu\DifficultyScrollbar.cs" />
      <Compile Include="Assets\GUI\Scripts\OptionsMenu\SoundSlider.cs" />
+     <Compile Include="Assets\TestScripts\ClickMovement.cs" />
+     <Compile Include="Assets\TestScripts\CreatureFactory.cs" />
+     <Compile Include="Assets\TestScripts\Movement.cs" />
+     <Compile Include="Assets\TestScripts\Rotation.cs" />
+     <Compile Include="Assets\TestScripts\TerrainFactory.cs" />
+     <Compile Include="Assets\TestScripts\TrollAnimation.cs" />
+     <None Include="Assets\Resources\Earthborn Troll\Shader\Alpha_Texture.shader" />
+     <None Include="Assets\Resources\Earthborn Troll\Shader\DoubleSided-Light-Spec.shader" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/4.6.0/UnityEngine.UI.dll</HintPath>
  </Reference>

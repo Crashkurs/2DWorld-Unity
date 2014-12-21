@@ -5,7 +5,7 @@ public class CreatureFactory : MonoBehaviour {
 
 	void Start()
 	{
-		createTroll(new Vector3(0, 0, 0), new Quaternion(0, 180, 0, 0));
+		createTroll(new Vector3(0, 20, 0), new Quaternion(0, 180, 0, 0));
 	}
 
 	public GameObject createTroll(Vector3 position, Quaternion rotation)
@@ -13,6 +13,11 @@ public class CreatureFactory : MonoBehaviour {
 		GameObject obj = createCreature ("Earthborn Troll/Troll", position, rotation);
 		obj.name = "Troll";
 		obj.AddComponent ("TrollAnimation");
+		obj.AddComponent ("Rotation");
+		obj.AddComponent ("Movement");
+		obj.AddComponent ("Rigidbody");
+		obj.AddComponent ("BoxCollider");
+		obj.GetComponent<Movement> ().TargetLocation = new Vector3(0, 0, 1);
 		return obj;
 	}
 
