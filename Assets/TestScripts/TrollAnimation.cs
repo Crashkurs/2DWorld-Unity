@@ -21,4 +21,9 @@ public class TrollAnimation : MonoBehaviour {
 	{
 		gameObject.animation.Play ("Idle_01");
 	}
+
+	void OnCollisionEnter(Collision collision)
+	{
+		rigidbody.velocity = new Vector3 (0, 0, 0);
+	}
 }
