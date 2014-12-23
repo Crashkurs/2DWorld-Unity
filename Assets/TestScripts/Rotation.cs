@@ -20,8 +20,7 @@ public class Rotation : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(isRotating)
-		{
+
 			Quaternion targetRotation = Quaternion.LookRotation (RotationGoal, Vector3.up);
 			transform.rotation = targetRotation;
 			isRotating = false;
@@ -30,7 +29,6 @@ public class Rotation : MonoBehaviour {
 			{
 				transform.rotation = targetRotation;
 			}*/
-		}
 
 	}
 }

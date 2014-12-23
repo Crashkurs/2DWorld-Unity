@@ -50,6 +50,10 @@
      <Compile Include="Assets\GUI\Scripts\MainMenu\GuiManager.cs" />
      <Compile Include="Assets\GUI\Scripts\OptionsMenu\DifficultyScrollbar.cs" />
      <Compile Include="Assets\GUI\Scripts\OptionsMenu\SoundSlider.cs" />
+     <Compile Include="Assets\Infinite Terrain\Scripts\FlyCamera.cs" />
+     <Compile Include="Assets\Infinite Terrain\Scripts\SimplexNoise.cs" />
+     <Compile Include="Assets\Infinite Terrain\Scripts\TerrainControl.cs" />
+     <Compile Include="Assets\Infinite Terrain\Scripts\TerrainGenerator.cs" />
      <Compile Include="Assets\TestScripts\CameraScrolling.cs" />
      <Compile Include="Assets\TestScripts\ClickMovement.cs" />
      <Compile Include="Assets\TestScripts\CreatureFactory.cs" />
