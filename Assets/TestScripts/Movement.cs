@@ -13,26 +13,42 @@ public class Movement : MonoBehaviour {
 
 	public Vector3 targetLocation;
 
-	public float movementSpeed = 0.4f;
+	public float movementSpeed = 1f;
 
 	public bool isMoving = false;
 	
 	// Update is called once per frame
 	void Update () {
-		if (Vector3.Distance(transform.position, targetLocation) > 0.1f) 
+		if (Input.GetKey (KeyboardSettings.getMappedKey(KeyboardSettings.KeyName.MoveForward))) 
 		{
-			Rotation rotation = GetComponent<Rotation>();
-			if(rotation.isRotating)
-			{
-
-			}else{
-					isMoving = true;
-					GetComponent<TrollAnimation>().Walk();
-					transform.Translate(Vector3.forward.normalized * movementSpeed * Time.deltaTime);
-			}
-		}else{
-			transform.position = targetLocation;
-			GetComponent<TrollAnimation>().StopWalk();
+			targetLocation = Vector3.zero;
+			MoveForward();
 		}
+		if (Input.GetKeyUp (KeyboardSettings.getMappedKey(KeyboardSettings.KeyName.MoveBackward)))
+		{
+			GetComponent<TrollAnimation> ().StopWalk ();
+			isMoving = false;
+		}
+		if (targetLocation != Vector3.zero) {
+						if (Vector3.Distance (transform.position, targetLocation) > 0.1f) {
+								Rotation rotation = GetComponent<Rotation> ();
+								if (rotation.isRotating) {
+
+								} else {
+										isMoving = true;
+										MoveForward ();
+								}
+						} else {
+								transform.position = targetLocation;
+								GetComponent<TrollAnimation> ().StopWalk ();
+								isMoving = false;
+						}
+				}
+	}
+
+	private void MoveForward()
+	{
+		GetComponent<TrollAnimation>().Walk();
+		transform.Translate(Vector3.forward.normalized * movementSpeed * Time.deltaTime);
 	}
 }

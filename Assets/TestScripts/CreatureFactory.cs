@@ -5,7 +5,8 @@ public class CreatureFactory : MonoBehaviour {
 
 	void Start()
 	{
-		createTroll(new Vector3(52.454f, 10.438f, 41.506f), new Quaternion(0, 180, 0, 0));
+		GameObject obj = createTroll(new Vector3(52.454f, 10.438f, 41.506f), new Quaternion(0, 180, 0, 0));
+		GameObject.Find ("Main Camera").GetComponent<BirdCamera> ().panToTarget(obj);
 		Debug.Log (Mathf.PerlinNoise (2, 3) + " . " + Mathf.PerlinNoise (2, 5));
 	}
 

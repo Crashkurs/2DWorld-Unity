@@ -54,11 +54,14 @@
      <Compile Include="Assets\Infinite Terrain\Scripts\SimplexNoise.cs" />
      <Compile Include="Assets\Infinite Terrain\Scripts\TerrainControl.cs" />
      <Compile Include="Assets\Infinite Terrain\Scripts\TerrainGenerator.cs" />
+     <Compile Include="Assets\TestScripts\BirdCamera.cs" />
      <Compile Include="Assets\TestScripts\CameraScrolling.cs" />
      <Compile Include="Assets\TestScripts\ClickMovement.cs" />
      <Compile Include="Assets\TestScripts\CreatureFactory.cs" />
+     <Compile Include="Assets\TestScripts\KeyboardSettings.cs" />
      <Compile Include="Assets\TestScripts\Movement.cs" />
      <Compile Include="Assets\TestScripts\Rotation.cs" />
+     <Compile Include="Assets\TestScripts\SmoothFollow.cs" />
      <Compile Include="Assets\TestScripts\TerrainFactory.cs" />
      <Compile Include="Assets\TestScripts\TrollAnimation.cs" />
      <None Include="Assets\Resources\Earthborn Troll\Shader\Alpha_Texture.shader" />

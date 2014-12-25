@@ -3,15 +3,15 @@ using System.Collections;
 
 public class CameraScrolling : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
+	public GameObject target;
 	
+	void Start() {
 	}
 	
-	// Update is called once per frame
-	void Update () {
-		Vector3 vec = transform.position;
-		vec.y += Input.GetAxis ("Mouse ScrollWheel") * -5;
-		transform.position = vec;
+	void LateUpdate() {
+		transform.position = target.transform.position + -2 * target.transform.rotation.eulerAngles.normalized;
+		transform.rotation = target.transform.rotation;
+		
+		//transform.LookAt(target.transform);
 	}
 }

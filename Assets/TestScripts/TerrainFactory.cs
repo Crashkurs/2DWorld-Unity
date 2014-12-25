@@ -5,31 +5,43 @@ using System.Collections.Generic;
 
 public class TerrainFactory : MonoBehaviour {
 
+	public static float chunkSize{
+		get{ return chunkSizeVector.x; }
+		set{ chunkSizeVector = new Vector3(value, value, value); }
+	}
+
+	private static Vector3 chunkSizeVector;
+
 	void Start () {
-		GameObject one = createTerrain (new Vector3 (0, 0, 0), "Images/Gras", new Vector3(100, 100, 100));
-		GameObject two = createTerrain (new Vector3 (100, 0, 0), "Images/Gras", new Vector3(100, 100, 100));
+		chunkSize = 100f;
+		GameObject one = createTerrain (new Vector3 (0, 0, 0), "Images/Gras", 5f, 10f);
+		GameObject two = createTerrain (new Vector3 (100, 0, 0), "Images/Gras", 5f, 10f);
+		GameObject three = createTerrain (new Vector3 (0, 0, 100), "Images/Gras", 5f, 10f);
+		GameObject four = createTerrain (new Vector3 (100, 0, 100), "Images/Gras", 5f, 10f);
 		one.GetComponent<Terrain> ().SetNeighbors (null, null, two.GetComponent<Terrain> (), null);
 		two.GetComponent<Terrain> ().SetNeighbors (one.GetComponent<Terrain> (), null, null, null);
+		//adjustHeightForTransition (one.GetComponent<Terrain> (), two.GetComponent<Terrain> (), three.GetComponent<Terrain> (), four.GetComponent<Terrain> ());
 		//createSeemlessNeighbours (one.GetComponent<Terrain> (), two.GetComponent<Terrain> (), 0.001f);
 	}
 
-	public GameObject createTerrain(Vector3 position, string texturePath, Vector3 terrainSize)
+	public GameObject createTerrain(Vector3 position, string texturePath, float hillHeight, float hillSize)
 	{
 		GameObject terrain;
 
 		TerrainData terrainData = new TerrainData ();
-		const int size = 513;
+		const int size = 512;
 		terrainData.heightmapResolution = size;
-		terrainData.size = terrainSize;
+		terrainData.size = chunkSizeVector;
 		terrainData.heightmapResolution = 512;
 		terrainData.baseMapResolution = 1024;
 
 		terrain = Terrain.CreateTerrainGameObject (terrainData);
 		terrain.transform.position = position;
-		terrain.transform.rotation = Quaternion.identity;
+		terrain.transform.rotation = new Quaternion(0, 90, 0, 0);
 		terrain.name = "Chunk1";
 		loadTexture (terrain.GetComponent<Terrain> (), texturePath);
-		GenerateHeights (terrain.GetComponent<Terrain> (), 5f);
+		terrain.GetComponent<Terrain> ().heightmapPixelError = 1f;
+		GenerateHeights (terrain.GetComponent<Terrain> (), hillHeight, hillSize);
 		terrain.AddComponent ("ClickMovement");
 
 		return terrain;
@@ -54,7 +66,7 @@ public class TerrainFactory : MonoBehaviour {
 		terrain.Flush ();
 	}
 
-	public void GenerateHeights(Terrain terrain, float tileSize)
+	public void GenerateHeights(Terrain terrain, float hillHeight, float hillSize)
 	{
 		float[,] heights = new float[terrain.terrainData.heightmapWidth, terrain.terrainData.heightmapHeight];
 		
@@ -62,14 +74,21 @@ public class TerrainFactory : MonoBehaviour {
 		{
 			for (int k = 0; k < terrain.terrainData.heightmapHeight; k++)
 			{
-				float xCoord = (terrain.transform.position.x + terrain.terrainData.size.x * (i * 1f / terrain.terrainData.heightmapWidth));
-				float zCoord = (terrain.transform.position.z + terrain.terrainData.size.z * (k * 1f / terrain.terrainData.heightmapHeight));
-				heights[i, k ] = Mathf.PerlinNoise(xCoord, zCoord) / terrain.terrainData.heightmapResolution * tileSize;
-
+				float xCoord = (terrain.transform.position.z + terrain.terrainData.size.z * (i+i * 1f/(terrain.terrainData.heightmapWidth-1)) / terrain.terrainData.heightmapWidth);
+				float zCoord = (terrain.transform.position.x + terrain.terrainData.size.x * (k+k * 1f/(terrain.terrainData.heightmapHeight-1)) / terrain.terrainData.heightmapHeight);
+				heights[i, k ] = 0.1f + SimplexNoise.Noise(xCoord / hillSize, zCoord / hillSize) * hillHeight / terrain.terrainData.heightmapResolution;
 			}
 		}
 
 		terrain.terrainData.SetHeights(0, 0, heights);
+	}
+
+	public void adjustHeightForTransition(Terrain t1, Terrain t2, Terrain t3, Terrain t4)
+	{
+		createSeemlessNeighbours (t1, t2, 2f);
+		createSeemlessNeighbours (t1, t3, 2f);
+		createSeemlessNeighbours (t3, t4, 2f);
+		createSeemlessNeighbours (t2, t4, 2f);
 	}
 
 	private void createSeemlessNeighbours(Terrain terrain1, Terrain terrain2, float stepSize)
