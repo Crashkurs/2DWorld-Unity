@@ -2,3 +2,10 @@ Library/**
 Temp/**
 bin/**
 Assets/Tree 1.prefab.meta
+*.meta
+*.userprefs
+*.csproj
+*.csproj
+*.unityproj
+*.ttf
+*.asset

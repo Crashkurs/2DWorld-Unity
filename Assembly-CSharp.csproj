@@ -19,7 +19,7 @@
 	<DebugType>full</DebugType>
 	<Optimize>false</Optimize>
 	<OutputPath>Temp\bin\Debug\</OutputPath>
-	<DefineConstants>DEBUG;TRACE;UNITY_4_6_0;UNITY_4_6;UNITY_STANDALONE_WIN;ENABLE_MICROPHONE;ENABLE_TEXTUREID_MAP;ENABLE_UNITYEVENTS;ENABLE_NEW_HIERARCHY ;ENABLE_AUDIO_FMOD;UNITY_STANDALONE;ENABLE_MONO;ENABLE_TERRAIN;ENABLE_SUBSTANCE;ENABLE_GENERICS;INCLUDE_WP8SUPPORT;ENABLE_MOVIES;ENABLE_WWW;ENABLE_IMAGEEFFECTS;ENABLE_4_6_FEATURES;INCLUDE_WP_BLUE_SUPPORT;ENABLE_WEBCAM;INCLUDE_METROSUPPORT;RENDER_SOFTWARE_CURSOR;ENABLE_NETWORK;ENABLE_PHYSICS;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_2D_PHYSICS;ENABLE_SHADOWS;ENABLE_AUDIO;ENABLE_NAVMESH_CARVING;ENABLE_DUCK_TYPING;ENABLE_SINGLE_INSTANCE_BUILD_SETTING;ENABLE_PROFILER;UNITY_EDITOR;UNITY_EDITOR_WIN</DefineConstants>
+	<DefineConstants>DEBUG;TRACE;UNITY_4_6_0;UNITY_4_6;UNITY_STANDALONE_WIN;ENABLE_MICROPHONE;ENABLE_TEXTUREID_MAP;ENABLE_UNITYEVENTS;ENABLE_NEW_HIERARCHY ;ENABLE_AUDIO_FMOD;UNITY_STANDALONE;ENABLE_MONO;ENABLE_TERRAIN;ENABLE_SUBSTANCE;ENABLE_GENERICS;INCLUDE_WP8SUPPORT;ENABLE_MOVIES;ENABLE_WWW;ENABLE_IMAGEEFFECTS;ENABLE_4_6_FEATURES;INCLUDE_WP_BLUE_SUPPORT;ENABLE_WEBCAM;INCLUDE_METROSUPPORT;RENDER_SOFTWARE_CURSOR;ENABLE_NETWORK;ENABLE_PHYSICS;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_2D_PHYSICS;ENABLE_SHADOWS;ENABLE_AUDIO;ENABLE_NAVMESH_CARVING;ENABLE_DUCK_TYPING;ENABLE_SINGLE_INSTANCE_BUILD_SETTING;DEVELOPMENT_BUILD;ENABLE_PROFILER;UNITY_EDITOR;UNITY_EDITOR_WIN</DefineConstants>
 	<ErrorReport>prompt</ErrorReport>
 	<WarningLevel>4</WarningLevel>
 	<NoWarn>0169</NoWarn>
@@ -50,24 +50,113 @@
      <Compile Include="Assets\GUI\Scripts\MainMenu\GuiManager.cs" />
      <Compile Include="Assets\GUI\Scripts\OptionsMenu\DifficultyScrollbar.cs" />
      <Compile Include="Assets\GUI\Scripts\OptionsMenu\SoundSlider.cs" />
-     <Compile Include="Assets\Infinite Terrain\Scripts\FlyCamera.cs" />
-     <Compile Include="Assets\Infinite Terrain\Scripts\SimplexNoise.cs" />
-     <Compile Include="Assets\Infinite Terrain\Scripts\TerrainControl.cs" />
-     <Compile Include="Assets\Infinite Terrain\Scripts\TerrainGenerator.cs" />
+     <Compile Include="Assets\TerrainToolkit\TerrainToolkit.cs" />
      <Compile Include="Assets\TestScripts\BirdCamera.cs" />
-     <Compile Include="Assets\TestScripts\CameraScrolling.cs" />
      <Compile Include="Assets\TestScripts\ClickMovement.cs" />
      <Compile Include="Assets\TestScripts\CreatureFactory.cs" />
+     <Compile Include="Assets\TestScripts\FreeRoamCamera.cs" />
+     <Compile Include="Assets\TestScripts\GameManager.cs" />
      <Compile Include="Assets\TestScripts\KeyboardSettings.cs" />
      <Compile Include="Assets\TestScripts\Movement.cs" />
-     <Compile Include="Assets\TestScripts\Rotation.cs" />
+     <Compile Include="Assets\TestScripts\Path Finding\AstarPathfindingProject\Core\AI\AIPath.cs" />
+     <Compile Include="Assets\TestScripts\Path Finding\AstarPathfindingProject\Core\AI\NavmeshController.cs" />
+     <Compile Include="Assets\TestScripts\Path Finding\AstarPathfindingProject\Core\AI\Seeker.cs" />
+     <Compile Include="Assets\TestScripts\Path Finding\AstarPathfindingProject\Core\AstarData.cs" />
+     <Compile Include="Assets\TestScripts\Path Finding\AstarPathfindingProject\Core\AstarMath.cs" />
+     <Compile Include="Assets\TestScripts\Path Finding\AstarPathfindingProject\Core\AstarPath.cs" />
+     <Compile Include="Assets\TestScripts\Path Finding\AstarPathfindingProject\Core\GraphUpdateScene.cs" />
+     <Compile Include="Assets\TestScripts\Path Finding\AstarPathfindingProject\Core\GraphUpdateShape.cs" />
+     <Compile Include="Assets\TestScripts\Path Finding\AstarPathfindingProject\Core\Misc\AnimationLink.cs" />
+     <Compile Include="Assets\TestScripts\Path Finding\AstarPathfindingProject\Core\Misc\AstarDebugger.cs" />
+     <Compile Include="Assets\TestScripts\Path Finding\AstarPathfindingProject\Core\Misc\AstarEnumFlagAttr.cs" />
+     <Compile Include="Assets\TestScripts\Path Finding\AstarPathfindingProject\Core\Misc\BinaryHeap.cs" />
+     <Compile Include="Assets\TestScripts\Path Finding\AstarPathfindingProject\Core\Misc\GraphEditorBase.cs" />
+     <Compile Include="Assets\TestScripts\Path Finding\AstarPathfindingProject\Core\Misc\GraphModifier.cs" />
+     <Compile Include="Assets\TestScripts\Path Finding\AstarPathfindingProject\Core\Misc\Int3.cs" />
+     <Compile Include="Assets\TestScripts\Path Finding\AstarPathfindingProject\Core\Misc\ListPool.cs" />
+     <Compile Include="Assets\TestScripts\Path Finding\AstarPathfindingProject\Core\Misc\NodeLink.cs" />
+     <Compile Include="Assets\TestScripts\Path Finding\AstarPathfindingProject\Core\Misc\NodeLink2.cs" />
+     <Compile Include="Assets\TestScripts\Path Finding\AstarPathfindingProject\Core\Misc\NodeLink3.cs" />
+     <Compile Include="Assets\TestScripts\Path Finding\AstarPathfindingProject\Core\Misc\ObjectPool.cs" />
+     <Compile Include="Assets\TestScripts\Path Finding\AstarPathfindingProject\Core\Misc\PathPool.cs" />
+     <Compile Include="Assets\TestScripts\Path Finding\AstarPathfindingProject\Core\Misc\StackPool.cs" />
+     <Compile Include="Assets\TestScripts\Path Finding\AstarPathfindingProject\Core\Misc\ThreadControlQueue.cs" />
+     <Compile Include="Assets\TestScripts\Path Finding\AstarPathfindingProject\Core\Misc\WindowsStoreCompatibility.cs" />
+     <Compile Include="Assets\TestScripts\Path Finding\AstarPathfindingProject\Core\Nodes\GraphNode.cs" />
+     <Compile Include="Assets\TestScripts\Path Finding\AstarPathfindingProject\Core\Path.cs" />
+     <Compile Include="Assets\TestScripts\Path Finding\AstarPathfindingProject\Core\PathHandler.cs" />
+     <Compile Include="Assets\TestScripts\Path Finding\AstarPathfindingProject\Core\Serialization\JsonConverters.cs" />
+     <Compile Include="Assets\TestScripts\Path Finding\AstarPathfindingProject\Core\Serialization\JsonSerializer.cs" />
+     <Compile Include="Assets\TestScripts\Path Finding\AstarPathfindingProject\Core\Serialization\SimpleJsonReplacement.cs" />
+     <Compile Include="Assets\TestScripts\Path Finding\AstarPathfindingProject\Core\Serialization\SimpleZipReplacement.cs" />
+     <Compile Include="Assets\TestScripts\Path Finding\AstarPathfindingProject\Core\astarclasses.cs" />
+     <Compile Include="Assets\TestScripts\Path Finding\AstarPathfindingProject\ExampleScenes\Example12_Procedural\ProceduralGridMover.cs" />
+     <Compile Include="Assets\TestScripts\Path Finding\AstarPathfindingProject\ExampleScenes\Example12_Procedural\ProceduralWorld.cs" />
+     <Compile Include="Assets\TestScripts\Path Finding\AstarPathfindingProject\ExampleScenes\ExampleScripts\AIFollow.cs" />
+     <Compile Include="Assets\TestScripts\Path Finding\AstarPathfindingProject\ExampleScenes\ExampleScripts\AstarSmoothFollow2.cs" />
+     <Compile Include="Assets\TestScripts\Path Finding\AstarPathfindingProject\ExampleScenes\ExampleScripts\DoorController.cs" />
+     <Compile Include="Assets\TestScripts\Path Finding\AstarPathfindingProject\ExampleScenes\ExampleScripts\DynamicGridObstacle.cs" />
+     <Compile Include="Assets\TestScripts\Path Finding\AstarPathfindingProject\ExampleScenes\ExampleScripts\MineBotAI.cs" />
+     <Compile Include="Assets\TestScripts\Path Finding\AstarPathfindingProject\ExampleScenes\ExampleScripts\ObjectPlacer.cs" />
+     <Compile Include="Assets\TestScripts\Path Finding\AstarPathfindingProject\ExampleScenes\ExampleScripts\TargetMover.cs" />
+     <Compile Include="Assets\TestScripts\Path Finding\AstarPathfindingProject\Generators\Base.cs" />
+     <Compile Include="Assets\TestScripts\Path Finding\AstarPathfindingProject\Generators\GridGenerator.cs" />
+     <Compile Include="Assets\TestScripts\Path Finding\AstarPathfindingProject\Generators\NavMeshGenerator.cs" />
+     <Compile Include="Assets\TestScripts\Path Finding\AstarPathfindingProject\Generators\NodeClasses\GridNode.cs" />
+     <Compile Include="Assets\TestScripts\Path Finding\AstarPathfindingProject\Generators\NodeClasses\PointNode.cs" />
+     <Compile Include="Assets\TestScripts\Path Finding\AstarPathfindingProject\Generators\NodeClasses\TriangleMeshNode.cs" />
+     <Compile Include="Assets\TestScripts\Path Finding\AstarPathfindingProject\Generators\PointGenerator.cs" />
+     <Compile Include="Assets\TestScripts\Path Finding\AstarPathfindingProject\Generators\QuadtreeGraph.cs" />
+     <Compile Include="Assets\TestScripts\Path Finding\AstarPathfindingProject\Generators\Utilities\BBTree.cs" />
+     <Compile Include="Assets\TestScripts\Path Finding\AstarPathfindingProject\Generators\Utilities\NavMeshRenderer.cs" />
+     <Compile Include="Assets\TestScripts\Path Finding\AstarPathfindingProject\Generators\Utilities\ObjImporter.cs" />
+     <Compile Include="Assets\TestScripts\Path Finding\AstarPathfindingProject\Modifiers\AlternativePath.cs" />
+     <Compile Include="Assets\TestScripts\Path Finding\AstarPathfindingProject\Modifiers\FunnelModifier.cs" />
+     <Compile Include="Assets\TestScripts\Path Finding\AstarPathfindingProject\Modifiers\Modifiers.cs" />
+     <Compile Include="Assets\TestScripts\Path Finding\AstarPathfindingProject\Modifiers\RaycastModifier.cs" />
+     <Compile Include="Assets\TestScripts\Path Finding\AstarPathfindingProject\Modifiers\SimpleSmoothModifier.cs" />
+     <Compile Include="Assets\TestScripts\Path Finding\AstarPathfindingProject\Modifiers\StartEndModifier.cs" />
+     <Compile Include="Assets\TestScripts\Path Finding\AstarPathfindingProject\Navmesh\RelevantGraphSurface.cs" />
+     <Compile Include="Assets\TestScripts\Path Finding\AstarPathfindingProject\Pathfinders\ABPath.cs" />
+     <Compile Include="Assets\TestScripts\Path Finding\AstarPathfindingProject\Utilities\AstarChecksum.cs" />
+     <Compile Include="Assets\TestScripts\Path Finding\AstarPathfindingProject\Utilities\AstarMemory.cs" />
+     <Compile Include="Assets\TestScripts\Path Finding\AstarPathfindingProject\Utilities\AstarParallel.cs" />
+     <Compile Include="Assets\TestScripts\Path Finding\AstarPathfindingProject\Utilities\AstarProfiler.cs" />
+     <Compile Include="Assets\TestScripts\Path Finding\AstarPathfindingProject\Utilities\DotNetReplacements.cs" />
+     <Compile Include="Assets\TestScripts\Path Finding\AstarPathfindingProject\Utilities\GraphUpdateUtilities.cs" />
+     <Compile Include="Assets\TestScripts\Path Finding\AstarPathfindingProject\Utilities\LockFreeStack.cs" />
+     <Compile Include="Assets\TestScripts\Path Finding\AstarPathfindingProject\Utilities\PathUtilities.cs" />
+     <Compile Include="Assets\TestScripts\Path Finding\AstarPathfindingProject\Utilities\ProfileHelper.cs" />
+     <Compile Include="Assets\TestScripts\Path Finding\AstarPathfindingProject\Utilities\UnityReferenceHelper.cs" />
+     <Compile Include="Assets\TestScripts\Path Finding\AstarPathfindingProject\changelog.cs" />
+     <Compile Include="Assets\TestScripts\PathMovement.cs" />
+     <Compile Include="Assets\TestScripts\Selectable.cs" />
      <Compile Include="Assets\TestScripts\SmoothFollow.cs" />
      <Compile Include="Assets\TestScripts\TerrainFactory.cs" />
-     <Compile Include="Assets\TestScripts\TrollAnimation.cs" />
+     <Compile Include="Assets\TestScripts\TerrainStitcher.cs" />
      <None Include="Assets\Resources\Earthborn Troll\Shader\Alpha_Texture.shader" />
+     <None Include="Assets\TestScripts\Path Finding\AstarPathfindingProject\Editor\EditorAssets\Materials\Navmesh2.shader" />
      <None Include="Assets\Resources\Earthborn Troll\Shader\DoubleSided-Light-Spec.shader" />
+     <None Include="Assets\TestScripts\Path Finding\AstarPathfindingProject\Plugins\DotNetZip\License.txt" />
+     <None Include="Assets\TestScripts\Path Finding\AstarPathfindingProject\ExampleScenes\Materials\Projector Multiply.shader" />
+     <None Include="Assets\TestScripts\Path Finding\AstarPathfindingProject\ExampleScenes\Materials\DiffuseAlwaysVisible.shader" />
+     <None Include="Assets\TestScripts\Path Finding\AstarPathfindingProject\Plugins\dependencies.txt" />
+     <None Include="Assets\TestScripts\Path Finding\AstarPathfindingProject\ExampleScenes\_Example Scenes.txt" />
+     <None Include="Assets\TestScripts\Path Finding\AstarPathfindingProject\Readme_upgrading.txt" />
+     <None Include="Assets\TestScripts\Path Finding\AstarPathfindingProject\ExampleScenes\Materials\Projector Light.shader" />
+     <None Include="Assets\TestScripts\Path Finding\AstarPathfindingProject\Readme.txt" />
+     <None Include="Assets\TestScripts\Path Finding\AstarPathfindingProject\Plugins\JsonFx\License.txt" />
+     <None Include="Assets\TestScripts\Path Finding\AstarPathfindingProject\Plugins\JsonFx\Readme.txt" />
+     <None Include="Assets\TestScripts\Path Finding\AstarPathfindingProject\link.xml" />
+     <None Include="Assets\TerrainToolkit\Read me.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/4.6.0/UnityEngine.UI.dll</HintPath>
+ </Reference>
+ <Reference Include="Pathfinding.Ionic.Zip.Reduced">
+ <HintPath>C:/Users/Admin/Documents/Visual Studio 2010/Projects/2DWorld-Unity/Assets/TestScripts/Path Finding/AstarPathfindingProject/Plugins/DotNetZip/Pathfinding.Ionic.Zip.Reduced.dll</HintPath>
+ </Reference>
+ <Reference Include="Pathfinding.JsonFx">
+ <HintPath>C:/Users/Admin/Documents/Visual Studio 2010/Projects/2DWorld-Unity/Assets/TestScripts/Path Finding/AstarPathfindingProject/Plugins/JsonFx/Pathfinding.JsonFx.dll</HintPath>
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -8,10 +8,14 @@ namespace Configuration
 		public static String hostIp;
 		public static int hostPort;
 
-		public static int ForegroundVolumeLevel = 100;
+		public static int foregroundVolumeLevel = 100;
 		public static int backgroundVolumneLevel = 100;
 
 		public static int difficulty;
+
+		public static float mouseSensity = 1f;
+
+		public static bool isRPGMode = true;
 	}
 }
 

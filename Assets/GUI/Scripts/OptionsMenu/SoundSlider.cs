@@ -21,13 +21,13 @@ public class SoundSlider : MonoBehaviour {
 						slider.value = (float)Configuration.Properties.backgroundVolumneLevel;
 
 		if (sliderType == SliderType.Sound)
-						slider.value = (float)Configuration.Properties.ForegroundVolumeLevel;
+						slider.value = (float)Configuration.Properties.foregroundVolumeLevel;
 	}
 
 	public void SoundValueChanged()
 	{
 		slider = gameObject.GetComponent<Slider> ();
-		Configuration.Properties.ForegroundVolumeLevel = (int)slider.value;
+		Configuration.Properties.foregroundVolumeLevel = (int)slider.value;
 	}
 
 	public void MusicValueChanged()
