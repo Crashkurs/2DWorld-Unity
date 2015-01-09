@@ -3,15 +3,30 @@ using System.Collections;
 
 public class ClickMovement : MonoBehaviour {
 
-	void OnMouseDown()
+	private GameManager gameManager;
+
+	void Start()
 	{
-		if(Input.GetMouseButtonDown(0))
+		gameManager = GameObject.Find ("GameManager").GetComponent<GameManager> ();
+	}
+
+	void OnMouseOver()
+	{
+		if(Input.GetMouseButtonDown(1) && !Configuration.Properties.isRPGMode)
 		{
 			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 			RaycastHit hit;
 			collider.Raycast(ray, out hit, Mathf.Infinity);
 
-			GameObject.Find("Troll").GetComponent<Movement>().TargetLocation = hit.point;
+			foreach(GameObject obj in gameManager.getSelectedUnits())
+			{
+				obj.GetComponent<PathMovement>().OrderMoveToPoint(hit.point);
+			}
 		}
+	}
+
+	void OnMouseDown()
+	{
+		gameManager.getSelectedUnits ().Clear ();
 	}
 }

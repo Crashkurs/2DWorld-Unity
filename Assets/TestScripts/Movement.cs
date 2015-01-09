@@ -3,52 +3,83 @@ using System.Collections;
 
 public class Movement : MonoBehaviour {
 
-	public Vector3 TargetLocation {
-		get{ return targetLocation;}
-				set{
-						targetLocation = value;
-			GetComponent<Rotation> ().RotationGoal = targetLocation;
-		}
-	}
+	private CharacterController controller;
 
-	public Vector3 targetLocation;
+	private Animator animator;
+
+	private Vector3 targetPoint;
 
 	public float movementSpeed = 1f;
-
-	public bool isMoving = false;
 	
-	// Update is called once per frame
-	void Update () {
-		if (Input.GetKey (KeyboardSettings.getMappedKey(KeyboardSettings.KeyName.MoveForward))) 
-		{
-			targetLocation = Vector3.zero;
-			MoveForward();
-		}
-		if (Input.GetKeyUp (KeyboardSettings.getMappedKey(KeyboardSettings.KeyName.MoveBackward)))
-		{
-			GetComponent<TrollAnimation> ().StopWalk ();
-			isMoving = false;
-		}
-		if (targetLocation != Vector3.zero) {
-						if (Vector3.Distance (transform.position, targetLocation) > 0.1f) {
-								Rotation rotation = GetComponent<Rotation> ();
-								if (rotation.isRotating) {
+	public float turnSpeed = 3f;
 
-								} else {
-										isMoving = true;
-										MoveForward ();
-								}
-						} else {
-								transform.position = targetLocation;
-								GetComponent<TrollAnimation> ().StopWalk ();
-								isMoving = false;
-						}
-				}
-	}
+	public float jumpSpeed = 1f;
 
-	private void MoveForward()
+	public bool isMoving;
+
+	private Vector3 movement =  Vector3.zero;
+
+	void Start()
 	{
-		GetComponent<TrollAnimation>().Walk();
-		transform.Translate(Vector3.forward.normalized * movementSpeed * Time.deltaTime);
+		movement.y = Physics.gravity.y / 1.4f;
+		controller = GetComponent<CharacterController> ();
+		animator = GetComponent<Animator> ();
+		isMoving = false;
 	}
+	
+	void Update() {
+		if (!controller)
+			return;
+		movement = Vector3.zero;
+		if (targetPoint != Vector3.zero && isMoving) 
+		{
+            RotateTowards (targetPoint - transform.position);
+			float distance = Vector3.Distance (transform.position, targetPoint);
+			if (distance <= 0.1f) 
+			{
+				isMoving = false;
+				targetPoint = Vector3.zero;
+			}else{
+				movement = transform.forward * movementSpeed;
+				if(distance < movement.magnitude * Time.deltaTime)
+				{
+					movement = movement.normalized * distance;
+				}
+			}
+		}
+		
+		if(movement.magnitude > 0f)
+		{
+			animator.SetFloat("Speed", 1f);
+		}else{
+			animator.SetFloat("Speed", 0f);
+		}
+		if(!controller.isGrounded)
+			movement.y = Physics.gravity.y / 10.4f;
+
+		controller.Move (movement * Time.deltaTime);
+
+	}
+
+	public void MoveOrderToPoint(Vector3 target)
+	{
+		isMoving = true;
+		targetPoint = target;
+	}
+    
+    protected virtual void RotateTowards (Vector3 dir) {
+        
+        if (dir == Vector3.zero) return;
+        
+        Quaternion rot = transform.rotation;
+        Quaternion toTarget = Quaternion.LookRotation (dir);
+        
+		rot = Quaternion.Slerp (rot,toTarget,turnSpeed*Time.deltaTime);
+        Vector3 euler = rot.eulerAngles;
+        euler.z = 0;
+        euler.x = 0;
+        rot = Quaternion.Euler (euler);
+        
+        transform.rotation = rot;
+    }
 }

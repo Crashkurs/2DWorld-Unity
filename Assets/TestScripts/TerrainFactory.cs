@@ -2,6 +2,7 @@ using UnityEngine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Pathfinding;
 
 public class TerrainFactory : MonoBehaviour {
 
@@ -11,17 +12,27 @@ public class TerrainFactory : MonoBehaviour {
 	}
 
 	private static Vector3 chunkSizeVector;
+	private AstarPath pathFinder;
 
 	void Start () {
 		chunkSize = 100f;
-		GameObject one = createTerrain (new Vector3 (0, 0, 0), "Images/Gras", 5f, 10f);
-		GameObject two = createTerrain (new Vector3 (100, 0, 0), "Images/Gras", 5f, 10f);
-		GameObject three = createTerrain (new Vector3 (0, 0, 100), "Images/Gras", 5f, 10f);
+		GameObject one = createTerrain (new Vector3 (0, 0, 0), "Images/Grass & rocks/diffuse", 5f, 10f);
+		GameObject two = createTerrain (new Vector3 (100, 0, 0), "Images/Grass 02/diffuse", 15f, 25f);
+		GameObject three = createTerrain (new Vector3 (0, 0, 100), "Images/Lava/diffuse", 5f, 10f);
 		GameObject four = createTerrain (new Vector3 (100, 0, 100), "Images/Gras", 5f, 10f);
+		generatePlane (one.GetComponent<Terrain>(), new Vector3 (100, 0, 100), 40);
+		TerrainStitcher.stitch (one.GetComponent<Terrain> (), two.GetComponent<Terrain> (), 15);
+		TerrainStitcher.stitch (one.GetComponent<Terrain> (), three.GetComponent<Terrain> (), 15);
+		TerrainStitcher.stitch (two.GetComponent<Terrain> (), four.GetComponent<Terrain> (), 15);
+		TerrainStitcher.stitch (four.GetComponent<Terrain> (), three.GetComponent<Terrain> (), 15);
+		//one.GetComponent<TerrainToolkit> ().FractalGenerator (0.4f, 1f);
 		one.GetComponent<Terrain> ().SetNeighbors (null, null, two.GetComponent<Terrain> (), null);
 		two.GetComponent<Terrain> ().SetNeighbors (one.GetComponent<Terrain> (), null, null, null);
-		//adjustHeightForTransition (one.GetComponent<Terrain> (), two.GetComponent<Terrain> (), three.GetComponent<Terrain> (), four.GetComponent<Terrain> ());
-		//createSeemlessNeighbours (one.GetComponent<Terrain> (), two.GetComponent<Terrain> (), 0.001f);
+		
+		generatePath(one.GetComponent<Terrain>(), new Vector3(0, 0, 0), new Vector3(30, 0, 20), 5f);
+
+		pathFinder = GameObject.Find ("PathFinding").GetComponent<AstarPath>();
+		pathFinder.Scan ();
 	}
 
 	public GameObject createTerrain(Vector3 position, string texturePath, float hillHeight, float hillSize)
@@ -39,10 +50,13 @@ public class TerrainFactory : MonoBehaviour {
 		terrain.transform.position = position;
 		terrain.transform.rotation = new Quaternion(0, 90, 0, 0);
 		terrain.name = "Chunk1";
+		terrain.layer = 8;
 		loadTexture (terrain.GetComponent<Terrain> (), texturePath);
+		loadTexture(terrain.GetComponent<Terrain> (), "Images/Ground & rocks 02/diffuse");
 		terrain.GetComponent<Terrain> ().heightmapPixelError = 1f;
 		GenerateHeights (terrain.GetComponent<Terrain> (), hillHeight, hillSize);
 		terrain.AddComponent ("ClickMovement");
+		terrain.AddComponent<TerrainToolkit> ();
 
 		return terrain;
 	}
@@ -76,56 +90,71 @@ public class TerrainFactory : MonoBehaviour {
 			{
 				float xCoord = (terrain.transform.position.z + terrain.terrainData.size.z * (i+i * 1f/(terrain.terrainData.heightmapWidth-1)) / terrain.terrainData.heightmapWidth);
 				float zCoord = (terrain.transform.position.x + terrain.terrainData.size.x * (k+k * 1f/(terrain.terrainData.heightmapHeight-1)) / terrain.terrainData.heightmapHeight);
-				heights[i, k ] = 0.1f + SimplexNoise.Noise(xCoord / hillSize, zCoord / hillSize) * hillHeight / terrain.terrainData.heightmapResolution;
+				heights[i, k ] = 0.1f + Mathf.PerlinNoise(xCoord / hillSize, zCoord / hillSize) * hillHeight / terrain.terrainData.heightmapResolution;
 			}
 		}
 
 		terrain.terrainData.SetHeights(0, 0, heights);
 	}
 
-	public void adjustHeightForTransition(Terrain t1, Terrain t2, Terrain t3, Terrain t4)
+	public void generatePlane(Terrain terrain, Vector3 center, int size)
 	{
-		createSeemlessNeighbours (t1, t2, 2f);
-		createSeemlessNeighbours (t1, t3, 2f);
-		createSeemlessNeighbours (t3, t4, 2f);
-		createSeemlessNeighbours (t2, t4, 2f);
-	}
+		TerrainData data = terrain.terrainData;
+		float[,] heights = data.GetHeights (0, 0, data.heightmapWidth, data.heightmapHeight);
+		float startHeight = heights [(int)center.x, (int)center.z];
 
-	private void createSeemlessNeighbours(Terrain terrain1, Terrain terrain2, float stepSize)
-	{
-		TerrainData t1 = terrain1.terrainData;
-		TerrainData t2 = terrain2.terrainData;
-
-		float[,] heights1 = t1.GetHeights (0, 0, t1.heightmapWidth, t1.heightmapHeight);
-		float[,] heights2 = t2.GetHeights (0, 0, t2.heightmapWidth, t2.heightmapHeight);
-		for (int x = 0; x < t1.heightmapWidth; x++)
+		//Calculate average height in quadrat size
+		float height = 0f;
+		for(int x = (int)(center.x - size/2); x < (int)(center.x + size/2); x++)
 		{
-			heights1[x, t1.heightmapHeight-1] = heights2[x, 0];
-			bool fits = false;
-			int pointer = t1.heightmapHeight-1;
-			while(!fits)
+			for(int z = (int)(center.z - size/2); z < (int)(center.z + size/2); z++)
 			{
-				try{
-					if(heights1[x, pointer] - stepSize > heights1[x, pointer-1])
-					{
-						heights1[x, pointer - 1] = heights1[x, pointer] - stepSize;
-						pointer--;
-					}else{
-						if(heights1[x, pointer] + stepSize < heights1[x, pointer-1])
-						{
-							heights1[x, pointer - 1] = heights1[x, pointer] + stepSize;
-							pointer--;
-						}else{
-							fits = true;
-						}
-					}
-				}catch(IndexOutOfRangeException e)
-				{
-					Debug.Log("Pointer: " + pointer);
-					return;
-				}
+				height += heights[x, z];
 			}
 		}
-		t1.SetHeights (0, 0, heights1);
+		height = height/(size * size);
+		for(int x = (int)(center.x - size/2); x < (int)(center.x + size/2); x++)
+		{
+			for(int z = (int)(center.z - size/2); z < (int)(center.z + size/2); z++)
+			{
+				heights[x,z] = height;
+			}
+		}
+		data.SetHeights (0, 0, heights);
+	}
+
+	public void generateMountain(Terrain terrain, Vector3 center, int size, float height)
+	{
+		TerrainData data = terrain.terrainData;
+		float[,] heights = data.GetHeights (0, 0, data.heightmapWidth, data.heightmapHeight);
+	}
+	
+	public void generatePath(Terrain terrain, Vector3 startPoint, Vector3 endPoint, float width)
+	{
+		TerrainData data = terrain.terrainData;
+		float[, ,] textures = data.GetAlphamaps(0, 0, data.alphamapWidth, data.alphamapHeight);
+		Vector3 dir = (endPoint - startPoint).normalized;
+		Vector3 vec = startPoint;
+		while(vec != endPoint)
+		{
+			if(vec.x < 0 || vec.x >= data.alphamapWidth || vec.z < 0 || vec.z >= data.alphamapHeight)
+			{
+				vec = endPoint;
+				break;
+			}
+			for(int x = (int)(vec.x - width/2); x < (int)(vec.x + width/2); x++)
+			{
+				for(int z = (int)(vec.z - width/2); z < (int)(vec.z + width/2); z++)
+				{
+					if(x < 0 || x >= data.alphamapWidth || z < 0 || z >= data.alphamapHeight)
+						break;
+					textures[x, z, 0] = 0f;
+					textures[x, z, 1] = 1f;
+				}
+			}
+			vec += dir;
+			
+		}
+		data.SetAlphamaps(0, 0, textures);
 	}
 }
